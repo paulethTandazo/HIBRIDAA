@@ -1,0 +1,222 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>GreenGuard 🐾🌿</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tu App Compañera</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div style="text-align: center; margin-bottom: 0px;">
+    <br>
+    <br>
+    <img src="https://i.postimg.cc/Dzsf8534/RECOMENDACIONES-28.png" alt="GreenGuard Logo"
+      style="height: 250px; width: auto; margin-bottom: 10px;">
+    <h1 style="font-size: 2rem; color: #0bba6c; margin: 10px 0;">GreenGuard 🐾🌿</h1>
+    <p style="font-size: 1.2rem; color: #344e41;">Investiga y compra flores sin lastimar a tus mascotas</p>
+  </div>
+  <!-- Selección de flor -->
+  <ion-item>
+    <ion-label>Flores</ion-label>
+    <ion-select placeholder="Elige una flor" (ionChange)="onFlowerSelected($event)">
+      <ion-select-option *ngFor="let flower of flowers" [value]="flower">{{ flower.name }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-card *ngIf="selectedFlower" class="flower-info-card">
+    <ion-card-header>
+      <img src="https://i.postimg.cc/Jh2xDdp5/tulipan.png" height="140" width="190" alt="{{ selectedFlower.name }}" style="display: block; margin: 0 auto;" />
+      <ion-card-title class="flower-title">Conoce un poco más sobre: {{ selectedFlower.name }}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <tr>
+          <th style="padding: 10px; border-bottom: 2px solid #ddd;">Atributo</th>
+          <th style="padding: 10px; border-bottom: 2px solid #ddd;">Detalle</th>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Origen</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedFlower.origen }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Nombre científico</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedFlower.scientificName }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Descripción</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedFlower.description }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Dato curioso</strong></td>
+          <td style="padding: 10px;">{{ selectedFlower.dato }}</td>
+        </tr>
+      </table>
+    </ion-card-content>
+  </ion-card>
+  
+
+
+  <!-- Advertencia de toxicidad -->
+  <ion-card *ngIf="selectedSugestion" class="warning-card">
+    <ion-card-header>
+      <img src="https://i.postimg.cc/7YCVGTbr/danger-5732-256.gif" height="100" width="110" alt="warning"
+        style="display: block; margin: 0 auto;" />
+      <ion-card-title>🚨 Advertencia 🚨</ion-card-title>
+      <ion-card-title>¡Ten cuidado si tienes las siguientes mascotas!</ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="font-size: 1.0rem;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <tr>
+          <th style="padding: 10px; border-bottom: 2px solid #ddd;">Categoría</th>
+          <th style="padding: 10px; border-bottom: 2px solid #ddd;">Detalle</th>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Nivel de Toxicidad</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;" class="warning-level">{{ selectedWarning.nivel }}
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Mascotas</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedWarning.afectados }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Descripción</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedWarning.advertencia }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Efectos</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;" class="warning-effects">{{ selectedWarning.efectos
+            }}</td>
+        </tr>
+
+      </table>
+    </ion-card-content>
+  </ion-card>
+  <!-- Sugerencias para mascotas -->
+  
+    <ion-card *ngIf="selectedSugestion" class="sugestion-info-card">
+      <ion-card-header>
+        <img src="https://i.postimg.cc/cLN1JKQ9/suggestion-3-16249.gif" height="140" width="200" alt="Sugerencia" style="display: block; margin: 0 auto;" />
+        <ion-card-title>💡 Sugerencias 💡</ion-card-title>
+        <ion-card-title>Tenemos las siguientes recomendaciones para tus mascotas</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <tr>
+            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Atributo</th>
+            <th style="padding: 10px; border-bottom: 2px solid #ddd;">Detalle</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Nombre científico</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedSugestion.scientificName }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Tipo Mascota</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedSugestion.tipoMascota }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;"><strong>Descripción</strong></td>
+            <td style="padding: 10px; border-bottom: 1px solid #ddd;">{{ selectedSugestion.descripcion }}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px;"><strong>Beneficios</strong></td>
+            <td style="padding: 10px;">{{ selectedSugestion.beneficio }}</td>
+          </tr>
+        </table>
+      </ion-card-content>
+    </ion-card>
+    
+</ion-content>
+<ion-card>
+
+  <style>
+    .flower-info-card {
+      background-color: #ffffff;
+      /* Suave fondo naranja */
+      border-left: 5px solid #2cdf64;
+      /* Resaltado de advertencia */
+      border-radius: 8px;
+      padding: 10px;
+      border-right: 5px solid #2cdf64;
+      border-bottom: 5px solid #2cdf64;
+      border-top: 5px solid #2cdf64;
+
+    }
+
+    .sugestion-info-card {
+      background-color: #ffffff;
+      /* Suave fondo naranja */
+      border-left: 5px solid #ea5151;
+      /* Resaltado de advertencia */
+      border-radius: 8px;
+      padding: 10px;
+      border-right: 5px solid #ea5151;
+      border-bottom: 5px solid #ea5151;
+      border-top: 5px solid #ea5151;
+    }
+    .flower-info-text {
+      flex: 1.2rem;
+      max-width: 60%;
+      text-align: left;
+    }
+
+    .flower-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .flower-description {
+      font-size: 1.2rem;
+      color: #344e41;
+    }
+
+    .flower-info-image {
+      flex: 1;
+      max-width: 35%;
+      text-align: center;
+    }
+
+    .flower-info-image img {
+      max-width: 100%;
+      border-radius: 15px;
+    }
+
+    .warning-card {
+      background-color: #ffffff;
+      /* Suave fondo naranja */
+      border-left: 5px solid #220b0b;
+      /* Resaltado de advertencia */
+      border-right: 5px solid #220b0b;
+      border-radius: 8px;
+      padding: 10px;
+      border-top: 5px solid #220b0b;
+      border-bottom: 5px solid #220b0b;
+
+    }
+
+    .warning-level {
+      color: #d00000;
+      /* Rojo para nivel de toxicidad */
+      font-weight: bold;
+    }
+
+    .warning-effects {
+      color: #d97706;
+      /* Naranja oscuro para efectos */
+    }
+
+    ion-card-title {
+      color: #ff6f61;
+      /* Rojo suave para títulos */
+      font-weight: bold;
+      font-size: 1.5rem;
+      /* Cambia el tamaño del texto del título */
+      text-align: center;
+    }
+  </style>

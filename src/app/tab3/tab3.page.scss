@@ -1,0 +1,70 @@
+.titulo {
+    color:#0000; /* Un tono cálido que recuerda al color de las flores */
+    font-weight: bold;
+    text-align: center;
+    font-family: 'borsok'; /* Fuente elegante, asociada con la naturaleza */
+    text-shadow: 1px 1px 1px #000000;
+    }
+  
+  p#descripcion,
+  p#vision,
+  p#unete {
+    text-align: justify;
+    font-family: 'Roboto', sans-serif; /* Fuente moderna para el contenido */
+    line-height: 1.8;
+    color: #555555; /* Color neutro y agradable a la vista */
+  }
+  
+  ion-card {
+    background: #c9e265; /* Fondo cálido y acogedor */
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 15px;
+  }
+  
+  ion-card-header {
+    background: linear-gradient(135deg, #ffffff, #ffffff); /* Gradiente que evoca tonos florales */
+    border-radius: 15px 15px 0 0; /* Bordes redondeados solo arriba */
+    padding: 15px;
+  }
+  
+  ion-card-title {
+    font-size: 1.4rem;
+  }
+  
+  ion-card-content {
+    padding: 20px;
+  }
+  
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre las filas */
+    text-align: center;
+  }
+  
+  .intro-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  
+  .intro-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    justify-content: center;
+    color: #555555; /* Un color que combina con #fffaf0 */
+  }
+  
+  .intro-subtitle {
+    font-size: 1rem;
+    color: #555555;
+    justify-content: center;
+    margin-top: 5px;
+  }
+  
+  
+  
+  
