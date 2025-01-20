@@ -1,55 +1,81 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Teachable Machine
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Teachable Machine</ion-title>
+<ion-content>
+  <ion-header [translucent]="true">
+    <ion-toolbar color="primary">
+      <ion-title class="ion-text-center">GreenGuard 🐾🌿</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <!-- CARGA DE IMAGEN - INICIO -->
-  @if(imageReady()) {
-  <ion-card>
-     <!-- Identificador #image -->
-
-    <img #image [src]="imageUrl()" alt="Imagen seleccionada" />
-    <!-- CARGA DE PREDICCIÓN - INICIO -->
-    @if(modelLoaded()) {
-    <div class="ion-text-center ion-padding-top ion-padding-bottom">
-      <ion-button fill="outline" color="success" (click)="predict()">Predecir</ion-button>
-    </div>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>Clases: {{ classLabels }} </ion-label>
-      </ion-item>
-      <!-- Itere sobre la lista de predicciones -->
-      @for (item of predictions; track $index) {
-        <ion-item>
-            <ion-label> {{  item?.className  }} :  {{  item?.probability | percent  }} </ion-label>
-          </ion-item>
-      }
-    </ion-list>
-    }
-    <!-- CARGA DE PREDICCIÓN - FIN -->
+<br>
+  <ion-card *ngIf="!imageReady()">
+    <ion-card-content class="card-content">
+      <br>
+      <h2 class="mensaje">¡Te ayudamos a identificar flores!</h2>
+      <br>
+      <div class="imgContainer">
+        <img src="https://i.postimg.cc/BbFkBG1B/NLA-Publishing-Flora-Front-Cover.jpg" alt="Imagen" class="imagen" height="300px"/>
+      </div>
+      <p class="submessage">Sube una foto de una flor y te diremos de qué especie se trata.</p>
+    </ion-card-content>
   </ion-card>
-  }
-  <!-- CARGA DE IMAGEN - FIN -->
 
-  <!-- Referencia en plantilla #fileInput, callback para el evento change y oculte el elemento -->
+  <div class="ion-text-center ion-padding-top ion-padding-bottom">
+    <ion-button shape="round" *ngIf="!imageReady()" (click)="fileInput.click()">
+      <ion-icon slot="start" name="cloud-upload-outline" color="white"></ion-icon>
+      CARGAR IMAGEN
+    </ion-button>
+  </div>
+
   <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
 
-  <!-- Disparo del evento click de fileInput -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-    <ion-fab-button (click)="fileInput.click()">
-      <ion-icon name="cloud-upload-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <div *ngIf="imageReady()" class="grid-container">
 
+    <div class="creation-container">
+      <strong class="spaced-container">Tu flor:</strong>
+      <img #image [src]="imageUrl()" alt="Selected Image" class="imagen" />
+      <div *ngIf="topPrediction" class="prediction-container">
+        <strong class="spaced-container">Especie predominante: <span>{{ topPrediction?.className }}</span></strong>
+      </div>
+    </div>    
+<br>
+    <div class="identified-container">
+      <Strong class="identified-title">Especies Identificadas:</Strong>
+
+      <ion-card *ngIf="predictions.length > 0" class="prediction-card">
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let item of predictions; let i = index" lines="none" class="prediction-item">
+              <ion-thumbnail slot="start" class="thumbnail">
+                <img id="imgR" alt="{{ item?.className }}" [src]="'assets/imgs/' + item?.className.toLowerCase() + '.jpg'" />
+              </ion-thumbnail>
+
+              <ion-label>
+                <h3 class="prediccionl">
+                  <!-- Cambiar hipervínculos para llevar a tab2.page.html -->
+                  <a [routerLink]="['/tabs/tab2']" [queryParams]="{ especie: item?.className }">
+                    {{ item?.className }}
+                  </a>
+                </h3>
+                <p class="result-text">Probabilidad: {{ item?.probability | percent }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </div>
+
+  <div class="ion-text-center ion-padding-top ion-padding-bottom">
+    <ion-button *ngIf="imageReady() && buttonVisible" (click)="predict()">
+      <ion-icon slot="start" name="analytics-outline"></ion-icon>
+      Identificar
+    </ion-button>
+  </div>
+
+  <div class="ion-text-center ion-padding-top ion-padding-bottom">
+    <ion-button *ngIf="imageReady()" (click)="reset()">
+      <ion-icon slot="start" name="analytics-outline"></ion-icon>
+      Nuevo
+    </ion-button>
+  </div>
 </ion-content>

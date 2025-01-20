@@ -9,14 +9,11 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonItem,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
   IonButton,
-  IonText,
+  IonChip,
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -25,6 +22,7 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
   imports: [
     CommonModule,
     IonHeader,
+    IonChip,
     IonToolbar,
     IonTitle,
     IonContent,
@@ -32,160 +30,185 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonItem,
-    IonLabel,
-    IonSelect,
-    IonSelectOption,
     IonButton,
-    IonText,
     ExploreContainerComponent,
   ],
 })
 export class Tab2Page {
   flowers = [
     {
-      name: 'Eucalipto',
-      scientificName: 'Eucalyptus globulus',
-      dato: 'El eucalipto es conocido por su distintivo aroma y propiedades medicinales.',
+      name: 'Tulipanes (Tulipa) 🌷',
+      scientificName: 'Tulipa spp.',
+      origen: 'Asia Central y Turquía, aunque muy populares en los Países Bajos.',
+      description:' Flores elegantes en forma de copa o campana, símbolo de la primavera 🌼. Son ideales para jardines y decoración.',
+      colores: 'Rojo, amarillo, rosa, blanco, morado, naranja y combinaciones multicolor 🌈.',
     },
     {
-      name: 'Tulipán',
-      scientificName: 'Tulipa gesneriana',
-      origen: 'Los tulipanes tienen su origen en las regiones montañosas 🏔️ de Asia Central 🌏.',
-      description:
-        'El nombre tulipán proviene del término turco tülbend, que significa turbante, debido a la similitud entre la forma de la flor y los turbantes tradicionales.',
-      dato: '¿Sabías que los tulipanes pueden moverse? 😎 Incluso después de ser cortados, sus tallos se inclinan hacia la luz, ¡como si bailaran para alcanzar al sol! ☀️🌷',
+      name: 'Lirios (Lilium) 🌷',
+      scientificName: 'Lilium spp.',
+      origen: 'Asia, Europa y América del Norte.',
+      description: ' Flores perennes con pétalos grandes y vistosos 🌟. Suelen tener diseños únicos como motas o rayas, y desprenden un aroma dulce y cautivador 🌺.',
+      colores: ' Blanco, amarillo, naranja, rosa, rojo, morado y combinaciones bicolores 🌈.',
+    },
+    
+    {
+      name: ' Rosas (Rosa) 🌹',
+      scientificName: 'Rosa spp.',
+      origen: 'Asia, aunque se encuentran en Europa, América del Norte y África del Norte.',
+      description: 'Arbustos espinosos con flores aromáticas y elegantes, símbolo del amor y la belleza 💖. Varían desde flores simples hasta variedades con muchos pétalos.',
+      colores: 'Rojo, blanco, rosa, amarillo, naranja, morado, azul (híbridas) y negro (muy oscuro) 🌺✨.'
     },
     {
-      name: 'Girasol',
-      scientificName: 'Helianthus annuus',
-      dato: 'Conocido por su tamaño y por seguir al sol durante el día.',
+      name: 'Girasoles (Helianthus annuus) 🌻',
+      scientificName: 'Helianthus annuus.',
+      origen: 'América del Norte y Central.',
+      description: ' Plantas altas y alegres 🌞. Sus flores grandes y radiantes parecen pequeños soles, y tienen la peculiaridad de seguir al sol cuando son jóvenes 🌅.',
+      colores: 'Amarillo con centro marrón o negro; algunas variedades tienen tonos rojizos o anaranjados 🍂.'
     },
     {
-      name: 'Diente de león',
+      name: 'Dientes de León (Taraxacum) 🌼',
       scientificName: 'Taraxacum officinale',
-      dato: 'Flor conocida por su simbolismo de esperanza y sueños.',
+      origen: 'Europa y Asia, pero ahora están en todo el mundo.',
+      description: 'Estas flores amarillas brillantes alegran los campos y jardines 🌞. Cuando maduran, se transforman en esferas blancas que al soplar liberan sus semillas al viento 🌬️✨.',
+      colores: 'Amarillo; las semillas maduras son blancas debido a los vilanos.'
     },
     {
-      name: 'Margarita',
+      name: ' Margaritas (Bellis perennis) 🌸',
       scientificName: 'Bellis perennis',
-      dato: 'Símbolo de pureza e inocencia, muy popular en jardines.',
+      origen: 'Europa, pero ahora se encuentran en todo el mundo.',
+      description: ' Estas flores encantadoras son símbolo de inocencia y pureza 💕. Sus pétalos blancos rodean un alegre centro amarillo.',
+      colores: 'Blanco con centro amarillo; algunas variedades tienen tonos rosa o púrpura 🌷.'
     },
+
   ];
-
-  pets = ['Perro', 'Gato', 'Conejo'];
-
-  selectedFlower: any = null; // Flor seleccionada
-  selectedWarning: any = null; // Advertencia seleccionada
-  selectedSugestion: any = null; // Sugerencia seleccionada
 
   Warnings = [
     {
-      name: 'Tulipán',
-      afectados: 'Afecta tanto a perritos como gatitos 🐶🐱',
-      advertencia:
-        'Los tulipanes están compuestos por alcaloides y glucósidos, elementos que son nefastos, en concreto, para el estómago de los gatos.',
-      efectos: 'Vómitos y diarrea.',
-      sugerencias: 'Helecho',
-      nivel: 'Alto',
+      name: 'Lirios (Lilium) 🌷',
+      advertencia: 'Algunos lirios son tóxicos, especialmente para gatos. Pueden causar insuficiencia renal severa.',
+      efectos: {
+        humanos: 'Irritación leve si se ingiere o manipula en exceso.',
+        mascotas: 'Vómitos, letargo, pérdida de apetito y daño renal en gatos.'
+      },
+      nivel: {
+        humanos1: 'Bajo ⚠️',
+        mascotas2: 'Alto para gatos 🐱❌',
+      },
     },
     {
-      name: 'Eucalipto',
-      advertencia:
-        'El eucalipto posee un aceite esencial llamado eucaliptol que es tóxico para perros y gatos.',
-      efectos: 'Vómitos, diarreas, midriasis, taquipnea, debilidad generalizada.',
-      sugerencias: 'Bambu',
-      nivel: 'Alto',
+      name: ' Rosas (Rosa) 🌹',
+      advertencia: 'Las espinas pueden causar lesiones en la piel o infecciones si no se tratan adecuadamente. Algunas variedades ornamentales pueden haber sido tratadas con pesticidas.',
+      efectos: {
+        humanos: 'Heridas leves por espinas; en raros casos, reacciones alérgicas.',
+        mascotas: 'Generalmente seguras, pero ingerirlas en grandes cantidades podría causar malestar estomacal.'
+      },
+      nivel: {
+        humanos1: 'Muy bajo ⚠️',
+        mascotas2: ' Bajo 🐾',
+      },
     },
     {
-      name: 'Margarita',
-      advertencia:
-        'Las margaritas pueden ser tóxicas para perros y gatos. Aunque son menos tóxicas que otras plantas.',
-      efectos: 'Falta de coordinación, alergias dérmicas y vómitos.',
-      sugerencias: 'Cactus',
-      nivel: 'Intermedio',
+      name: 'Girasoles (Helianthus annuus) 🌻',
+      advertencia: 'Son considerados seguros en general, pero el polen podría causar alergias.',
+      efectos: {
+        humanos: 'Alergias respiratorias o cutáneas en personas sensibles al polen.',
+        mascotas: 'No son tóxicos, pero pueden causar molestias digestivas si se ingieren en exceso.'
+      },
+      nivel: {
+        humanos1: 'Muy bajo ⚠️',
+        mascotas2: 'Muy bajo 🐾',
+      },
+    },
+    {
+      name: 'Tulipanes (Tulipa) 🌷',
+      advertencia: 'Los bulbos de tulipanes son tóxicos y pueden ser peligrosos si se ingieren.',
+      efectos: {
+        humanos: ' Náuseas, vómitos, irritación en la piel por contacto prolongado.',
+        mascotas: 'Salivación, vómitos, diarrea e irritación gastrointestinal.'
+      },
+      nivel: {
+        humanos1: 'Bajo a moderado ⚠️',
+        mascotas2: 'Moderado 🐾❌',
+      },
+    },
+    {
+      name: 'Dientes de León (Taraxacum) 🌼',
+      advertencia: 'Generalmente seguros, aunque podrían haber crecido en áreas tratadas con pesticidas o contaminantes.',
+      efectos: {
+        humanos: 'Consumo excesivo podría causar molestias digestivas.',
+        mascotas: 'Generalmente seguros, pero en grandes cantidades pueden causar diarrea.',
+      },
+      nivel: {
+        humanos1: 'Muy bajo ⚠️',
+        mascotas2: 'Muy bajo 🐾',
+      },
+    },
+    {
+      name: ' Margaritas (Bellis perennis) 🌸',
+      advertencia: 'Pueden ser levemente tóxicas si se consumen en grandes cantidades, especialmente para mascotas.',
+      efectos: {
+        humanos: 'Malestar digestivo leve o irritación cutánea en personas sensibles.',
+        mascotas: 'Vómitos, diarrea o pérdida de apetito.',
+      },
+      nivel: {
+        humanos1: 'Bajo ⚠️',
+        mascotas2: 'Bajo a moderado 🐾❌',
+      },
     },
   ];
 
   suggestions = [
     {
-      scientificName: 'Helecho',
-      tipoMascota: 'Perros y Gatos 🐶🐱',
-      descripcion: 'Efecto medicinal para los perritos y gatitos del hogar',
+      scientificName: 'Caléndulas (Calendula officinalis) 🌼',
+      seguridad: 'No tóxicas para humanos y mascotas.',
+      beneficios: 'Usadas en remedios naturales por sus propiedades antiinflamatorias y cicatrizantes.',
+      descripcion: 'Flores brillantes en tonos amarillos y naranjas que añaden un toque alegre al hogar o jardín.',
     },
     {
-      scientificName: 'Bambu',
-      tipoMascota: 'Perros y Gatos 🐶🐱',
-      descripcion: 'Efecto medicinal para los perritos y gatitos del hogar',
+      scientificName: 'Violetas Africanas (Saintpaulia) 🌸',
+      seguridad: ' Seguras para mascotas y personas.',
+      beneficios: 'Perfectas para interiores; purifican el aire y son fáciles de cuidar.',
+      descripcion: 'Pequeñas flores en tonos púrpuras, rosados o blancos que crecen en hojas aterciopeladas.',
     },
     {
-      scientificName: 'Cactus',
-      tipoMascota: 'Perros y Gatos 🐶🐱',
-      descripcion: 'Efecto medicinal para los perritos y gatitos del hogar',
+      scientificName: 'Bambú de la Suerte (Dracaena sanderiana) 🍃',
+      seguridad: 'No es tóxico en pequeñas cantidades.',
+      beneficios: 'Aporta energía positiva según el Feng Shui.',
+      descripcion: 'Aunque técnicamente no es una flor, puede combinarse con flores seguras para crear arreglos decorativos.',
     },
   ];
 
-  constructor() {}
+  selectedFlower: any;
+  selectedWarning: any;
+  selectedSugestion: any;
 
-  // Manejar selección de flor
-  onFlowerSelected(event: any) {
-    this.selectedFlower = event.detail.value;
+constructor(private route: ActivatedRoute) {}
 
-    // Buscar advertencia correspondiente
-    this.selectedWarning = this.Warnings.find(
-      (warning) => warning.name === this.selectedFlower.name
-    ) || null;
+  ngOnInit() {
+    // Obtener el parámetro de consulta 'especie'
+    this.route.queryParams.subscribe((params) => {
+      const especie = params['especie'];
+      if (especie) {
+        // Buscar la flor correspondiente
+        this.selectedFlower = this.flowers.find(
+          (flower) => flower.name.toLowerCase().includes(especie.toLowerCase())
+        );
 
-    // Llamar a la función para encontrar sugerencia
-    if (this.selectedWarning) {
-      this.onWarningSelected(this.selectedWarning);
-    }
+        // Configurar advertencias y sugerencias
+        if (this.selectedFlower) {
+          this.selectedWarning = this.Warnings.find(
+            (warning) => warning.name === this.selectedFlower.name
+          );
 
-    console.log('Flor seleccionada:', this.selectedFlower);
-    console.log('Advertencia asociada:', this.selectedWarning);
-    console.log('Sugerencia asociada:', this.selectedSugestion);
-  }
-
-  // Manejar selección de advertencia para mostrar sugerencia
-  onWarningSelected(warning: any) {
-    // Encontrar sugerencia asociada a la advertencia
-    this.selectedSugestion =
-      this.suggestions.find(
-        (suggestion) =>
-          suggestion.scientificName.toLowerCase() ===
-          (warning.sugerencias?.toLowerCase() || '')
-      ) || null;
-
-    console.log('Sugerencia asociada:', this.selectedSugestion);
-  }
-
-  // Obtener ubicación del usuario
-  getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          console.log('Ubicación obtenida:', { latitude, longitude });
-
-          // Llama a una función para buscar floristerías
-          this.findNearbyFlorists(latitude, longitude);
-        },
-        (error) => {
-          console.error('Error al obtener la ubicación:', error.message);
-          alert(
-            'No se pudo acceder a tu ubicación. Por favor, habilítala en tu navegador.'
+          this.selectedSugestion = this.suggestions.find(
+            (suggestion) =>
+              suggestion.scientificName.toLowerCase() ===
+              this.selectedFlower.scientificName.toLowerCase()
           );
         }
-      );
-    } else {
-      alert('La geolocalización no es compatible con tu navegador.');
-    }
+      }
+    });
   }
-
-  // Buscar floristerías cercanas
-  findNearbyFlorists(latitude: number, longitude: number) {
-    console.log('Buscando floristerías cerca de:', { latitude, longitude });
-    // Aquí puedes implementar la lógica para buscar floristerías cercanas
-  }
+  
+  
 }

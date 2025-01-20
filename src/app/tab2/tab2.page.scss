@@ -1,0 +1,133 @@
+/* Sección de Bienvenida */
+.welcome-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .welcome-logo {
+    height: 200px;
+    width: auto;
+    margin-bottom: 15px;
+  }
+  
+  .welcome-title {
+    font-size: 2.5rem;
+    color: #0bba6c;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  .welcome-description {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #344e41;
+  }
+  
+  /* Estilo de las Tarjetas */
+  .container {
+    padding: 0 16px;
+  }
+  
+  .flower-card, .warning-card, .suggestion-card {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .flower-header {
+    background-color: #e0f7fa;
+    color: #00695c;
+  }
+  
+  .warning-header {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  .suggestion-header {
+    background-color: #e8f5e9;
+    color: #388e3c;
+  }
+  
+  .next-button {
+    margin-top: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  /* Contenedor principal */
+.surprise-box {
+    position: relative;
+    margin: 20px auto;
+    width: 200px;
+    height: 100px;
+    background: #ffde59;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: bounce-in 1s ease-out;
+    overflow: hidden;
+  }
+  
+  /* Tapa de la caja */
+  .box-lid {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #f4b400;
+    border-radius: 10px 10px 0 0;
+    animation: open-lid 1s ease-out forwards;
+  }
+  
+  /* Cuerpo de la caja */
+  .box-body {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Texto del dato curioso */
+  .surprise-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #344e41;
+    text-align: center;
+    margin: 10px 0;
+    opacity: 0;
+    animation: fade-in 1.5s ease-out 1s forwards;
+  }
+  
+  /* Animaciones */
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes open-lid {
+    0% {
+      top: -50px;
+    }
+    100% {
+      top: -10px;
+    }
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

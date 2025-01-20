@@ -34,7 +34,8 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": ["src/global.scss", "src/theme/variables.scss"
+          ],
             "scripts": ["src/assets/javascript/tf.min.js",
                      	"src/assets/javascript/teachablemachine-image.min.js"],
             "browser": "src/main.ts"
@@ -109,7 +110,8 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": ["src/global.scss", "src/theme/variables.scss"
+          ],
             "scripts": []
           },
           "configurations": {
